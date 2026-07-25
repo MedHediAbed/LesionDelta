@@ -1,0 +1,29 @@
+<div
+  class="drop-zone"
+  [class.drag-over]="isDragOver"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  >
+  <input
+    type="file"
+    id="dicomFileInput"
+    class="hidden-input"
+    multiple
+    webkitdirectory
+    (change)="onFileInputChange($event)"
+    />
+
+  @if (selectedFileNames.length === 0) {
+    <p class="drop-zone__icon">📁</p>
+    <p class="drop-zone__title">Glissez-déposez le dossier de la série DICOM ici</p>
+    <p class="drop-zone__subtitle">ou</p>
+    <label for="dicomFileInput" class="drop-zone__browse-btn">Parcourir le device local</label>
+  } @else {
+    <p class="drop-zone__title">{{ selectedFileNames.length }} fichier(s) sélectionné(s)</p>
+    <label for="dicomFileInput" class="drop-zone__browse-btn drop-zone__browse-btn--secondary">
+      Changer la sélection
+    </label>
+  }
+
+</div>

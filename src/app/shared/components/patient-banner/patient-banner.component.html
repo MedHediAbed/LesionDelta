@@ -1,0 +1,19 @@
+<div class="patient-banner">
+  <div class="patient-banner__avatar">
+    {{ (patient.first_name || '?').charAt(0) }}{{ (patient.last_name || '?').charAt(0) }}
+  </div>
+  <div class="patient-banner__info">
+    <h2 class="patient-banner__name">{{ patient.first_name }} {{ patient.last_name }}</h2>
+    <div class="patient-banner__meta">
+      @if (patient.birth_date) {
+        <span>Né(e) le {{ patient.birth_date }}</span>
+      }
+      @if (patient.gender) {
+        <span>· {{ patient.gender }}</span>
+      }
+      @if (patient.medical_record_number) {
+      <span>· Dossier n° {{ patient.medical_record_number }}</span>
+      }
+    </div>
+  </div>
+</div>

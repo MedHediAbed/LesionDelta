@@ -1,0 +1,157 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page__title {
+  margin: 0;
+  color: #0f172a;
+}
+
+.page__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+.state-panel {
+  margin: 4rem auto;
+  max-width: 420px;
+  text-align: center;
+  color: #334155;
+}
+
+.state-panel--error .state-panel__title {
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.state-panel__hint {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.panel {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.panel__title {
+  margin: 0 0 0.25rem;
+  color: #0f172a;
+}
+
+.panel__subtitle {
+  margin: 0 0 1rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.ohif-frame-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  height: 520px;
+}
+
+.ohif-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.upload-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn--primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn--primary:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.progress {
+  position: relative;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress__bar {
+  height: 100%;
+  background-color: #2563eb;
+  transition: width 0.15s ease;
+}
+
+.progress__label {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.upload-message {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.upload-message--success {
+  color: #15803d;
+}
+
+.upload-message--error {
+  color: #b91c1c;
+}

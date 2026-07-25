@@ -1,0 +1,36 @@
+.patient-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.patient-banner__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.patient-banner__name {
+  margin: 0;
+  font-size: 1.125rem;
+  color: #0f172a;
+}
+
+.patient-banner__meta {
+  margin-top: 0.125rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  display: flex;
+  gap: 0.35rem;
+}

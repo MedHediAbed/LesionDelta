@@ -1,0 +1,88 @@
+<div class="page">
+
+  <!-- Chargement -->
+  @if (pageState === 'loading') {
+    <div class="state-panel">
+      <div class="spinner"></div>
+      <p>Authentification et chargement du dossier patient…</p>
+    </div>
+  }
+
+  <!-- Erreur de lien / auth / patient -->
+  @if (pageState === 'error') {
+    <div class="state-panel state-panel--error">
+      <p class="state-panel__title">⚠️ Impossible d'ouvrir DeltaLesion</p>
+      <p>{{ errorMessage }}</p>
+      <p class="state-panel__hint">
+        Retournez à l'application mobile et réessayez depuis la fiche patient.
+      </p>
+    </div>
+  }
+
+  <!-- Contenu principal -->
+  @if (pageState === 'ready' && patient) {
+    <header class="page__header">
+      <h1 class="page__title">DeltaLesion</h1>
+      <button class="btn btn--ghost" (click)="returnToMobileApp()">← Retour à l'app mobile</button>
+    </header>
+    <app-patient-banner [patient]="patient"></app-patient-banner>
+    <section class="panel">
+      <h3 class="panel__title">1. Visualiser la série DICOM</h3>
+      <p class="panel__subtitle">
+        Glissez le dossier de la série dans le visualisateur ci-dessous pour inspection (les
+        fichiers ne sont pas encore envoyés au serveur à cette étape).
+      </p>
+      <div class="ohif-frame-wrapper">
+        <iframe [src]="ohifUrl" class="ohif-frame" title="Visualisateur DICOM OHIF"></iframe>
+      </div>
+    </section>
+    <section class="panel">
+      <h3 class="panel__title">2. Ajouter la série au dossier du patient</h3>
+      <p class="panel__subtitle">
+        Sélectionnez le même dossier pour l'envoyer vers le dossier patient sur Supabase.
+      </p>
+      <app-dicom-drop-zone (filesSelected)="onFilesSelected($event)"></app-dicom-drop-zone>
+      <div class="upload-actions">
+        <button
+          class="btn btn--primary"
+          [disabled]="selectedFiles.length === 0 || uploadState === 'uploading'"
+          (click)="startUpload()"
+          >
+          @switch (uploadState) {
+            @case ('uploading') {
+              <span>Envoi en cours…</span>
+            }
+            @default {
+              <span>Envoyer la série ({{ selectedFiles.length }} fichiers)</span>
+            }
+          }
+        </button>
+        @if (uploadState === 'uploading' && uploadProgress) {
+          <div class="progress">
+            <div class="progress__bar" [style.width.%]="uploadProgress.percent"></div>
+            <span class="progress__label">
+              {{ uploadProgress.fileIndex }}/{{ uploadProgress.totalFiles }} —
+              {{ uploadProgress.percent }}%
+            </span>
+          </div>
+        }
+        @if (uploadState === 'success') {
+          <p class="upload-message upload-message--success">
+            ✅ Série DICOM ajoutée au dossier du patient.
+          </p>
+        }
+        @if (uploadState === 'error') {
+          <p class="upload-message upload-message--error">
+            ❌ {{ uploadErrorMessage }}
+          </p>
+        }
+      </div>
+    </section>
+    <footer class="page__footer">
+      <button class="btn btn--primary" (click)="returnToMobileApp()">
+        Terminer et retourner à l'app mobile
+      </button>
+    </footer>
+  }
+
+</div>
