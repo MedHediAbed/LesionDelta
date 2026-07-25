@@ -19,6 +19,7 @@ type Patient = {
   first_name: string;
   last_name: string;
   medecin_id: string;
+  medical_record_number: string | null;
   medecins: { first_name: string; last_name: string } | null; // propriétaire
 };
 
@@ -34,7 +35,7 @@ export default function MedecinDashboard({ navigation }: any) {
     // les patients possédés + ceux partagés avec l'utilisateur connecté.
     const { data, error } = await supabase
       .from('patients')
-      .select('id, first_name, last_name, medecin_id, medecins:medecin_id(first_name, last_name)')
+      .select('id, first_name, last_name, birth_date, gender, medical_record_number, medecin_id, medecins:medecin_id(first_name, last_name)')
       .order('last_name', { ascending: true });
 
     if (error) {
@@ -83,7 +84,7 @@ export default function MedecinDashboard({ navigation }: any) {
   };
 
   const filtered = patients.filter((p) =>
-    `${p.first_name} ${p.last_name}`.toLowerCase().includes(search.toLowerCase())
+    `${p.first_name} ${p.last_name} ${p.medical_record_number ?? ''}`.toLowerCase().includes(search.toLowerCase())
   );
 
   const renderItem = ({ item }: { item: Patient }) => {
@@ -97,6 +98,9 @@ export default function MedecinDashboard({ navigation }: any) {
         <View style={{ flex: 1 }}>
           <Text style={styles.cardTitle}>
             {item.first_name} {item.last_name}
+          </Text>
+          <Text style={styles.recordNumber}>
+            Dossier : {item.medical_record_number || 'non renseigné'}
           </Text>
           {!isOwner && item.medecins && (
             <Text style={styles.sharedBy}>
@@ -139,7 +143,7 @@ export default function MedecinDashboard({ navigation }: any) {
       <View style={styles.searchWrap}>
         <TextInput
           style={styles.search}
-          placeholder="Rechercher un patient..."
+          placeholder="Nom, prénom ou numéro de dossier..."
           value={search}
           onChangeText={setSearch}
         />
@@ -208,6 +212,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardTitle: { fontSize: 16, fontWeight: '600', color: '#1E3A5F' },
+  recordNumber: { fontSize: 12, color: '#64748B', marginTop: 3 },
   sharedBy: { fontSize: 11, color: '#8A6D00', marginTop: 3 },
   cardActions: { flexDirection: 'row', gap: 14, alignItems: 'center' },
   shareBtn: { color: '#1E3A5F', fontSize: 12, fontWeight: '600' },

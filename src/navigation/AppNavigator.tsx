@@ -11,6 +11,7 @@ import AdminDashboard from '../screens/AdminDashboard';
 import MedecinDashboard from '../screens/MedecinDashboard';
 import PatientFormScreen from '../screens/PatientFormScreen';
 import SharePatientScreen from '../screens/SharePatientScreen';
+import ConsultationScreen from '../screens/ConsultationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,11 @@ function MedecinStack() {
       <Stack.Screen
         name="SharePatient"
         component={SharePatientScreen}
+        options={{ presentation: 'modal' }}
+      />
+      <Stack.Screen
+        name="Consultation"
+        component={ConsultationScreen}
         options={{ presentation: 'modal' }}
       />
     </Stack.Navigator>
