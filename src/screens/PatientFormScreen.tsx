@@ -40,6 +40,7 @@ export default function PatientFormScreen({ route, navigation }: any) {
   const [lastName, setLastName] = useState(patient?.last_name ?? '');
   const [gender, setGender] = useState(patient?.gender ?? '');
   const [birthDate, setBirthDate] = useState(displayDate(patient?.birth_date));
+  const [medicalRecordNumber, setMedicalRecordNumber] = useState(patient?.medical_record_number ?? '');
   const [loading, setLoading] = useState(false);
 
   const savePatient = async () => {
@@ -58,6 +59,7 @@ export default function PatientFormScreen({ route, navigation }: any) {
       last_name: lastName.trim(),
       gender,
       birth_date: parsedBirthDate,
+      medical_record_number: medicalRecordNumber.trim() || null,
     };
 
     setLoading(true);
@@ -67,7 +69,11 @@ export default function PatientFormScreen({ route, navigation }: any) {
     setLoading(false);
 
     if (result.error) {
-      showAlert('Erreur', result.error.message);
+      if (result.error.code === '23505') {
+        showAlert('Numéro de dossier déjà utilisé', 'Ce numéro de dossier est déjà attribué à un autre patient.');
+      } else {
+        showAlert('Erreur', result.error.message);
+      }
       return null;
     }
     return result.data;
@@ -94,6 +100,14 @@ export default function PatientFormScreen({ route, navigation }: any) {
           <TextInput style={styles.input} value={lastName} onChangeText={setLastName} placeholder="Nom" />
           <Text style={styles.label}>Prénom *</Text>
           <TextInput style={styles.input} value={firstName} onChangeText={setFirstName} placeholder="Prénom" />
+          <Text style={styles.label}>Numéro de dossier</Text>
+          <TextInput
+            style={styles.input}
+            value={medicalRecordNumber}
+            onChangeText={setMedicalRecordNumber}
+            placeholder="Doit être unique par patient"
+            autoCapitalize="none"
+          />
           <Text style={styles.label}>Sexe *</Text>
           <View style={styles.choiceRow}>
             {GENDERS.map((option) => (
