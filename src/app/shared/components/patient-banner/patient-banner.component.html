@@ -5,15 +5,9 @@
   <div class="patient-banner__info">
     <h2 class="patient-banner__name">{{ patient.first_name }} {{ patient.last_name }}</h2>
     <div class="patient-banner__meta">
-      @if (patient.birth_date) {
-        <span>Né(e) le {{ patient.birth_date }}</span>
-      }
-      @if (patient.gender) {
-        <span>· {{ patient.gender }}</span>
-      }
-      @if (patient.medical_record_number) {
-      <span>· Dossier n° {{ patient.medical_record_number }}</span>
-      }
+      <span *ngIf="patient.birth_date">Né(e) le {{ patient.birth_date }}</span>
+      <span *ngIf="patient.gender">· {{ patient.gender }}</span>
+      <span *ngIf="patient.medical_record_number">· Dossier n° {{ patient.medical_record_number }}</span>
     </div>
   </div>
 </div>

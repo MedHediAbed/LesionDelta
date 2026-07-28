@@ -9,7 +9,7 @@ export const environment = {
   production: false,
 
   supabaseUrl: 'https://fvhdtwesgzzszabtigyo.supabase.co',
-  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2aGR0d2VzZ3p6c3phYnRpZ3lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2ODY4MDYsImV4cCI6MjA5OTI2MjgwNn0.X4jA4iVG6vmKIWb4-gdjhUeFnhb5kVYTB2BnCEmo4Nk',
+  supabaseAnonKey: 'sb_publishable_MG8lm70d0S7U8xATvWebAA_4Xk6C7s4',
 
   // Nom du bucket Supabase Storage où seront stockés les fichiers DICOM
   dicomStorageBucket: 'dicom-series',
@@ -22,4 +22,8 @@ export const environment = {
   // URL de fallback vers l'app mobile pendant le développement local
   // (en attendant un vrai Universal Link / App Link en production)
   mobileAppFallbackUrl: 'exp://127.0.0.1:8081/--/patient-detail',
+
+  // URL du micro-serveur backend (FastAPI) qui convertit DICOM -> NIfTI
+  // via dcm2niix. Voir dossier /backend à la racine du projet.
+  niftiConversionApiUrl: 'http://localhost:8000',
 };

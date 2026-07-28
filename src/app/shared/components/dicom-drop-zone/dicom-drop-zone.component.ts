@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-dicom-drop-zone',
-    imports: [],
-    templateUrl: './dicom-drop-zone.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './dicom-drop-zone.component.css'
+  selector: 'app-dicom-drop-zone',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './dicom-drop-zone.component.html',
+  styleUrl: './dicom-drop-zone.component.css',
 })
 export class DicomDropZoneComponent {
   @Output() filesSelected = new EventEmitter<File[]>();

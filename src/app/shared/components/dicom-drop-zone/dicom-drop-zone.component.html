@@ -4,7 +4,7 @@
   (dragover)="onDragOver($event)"
   (dragleave)="onDragLeave($event)"
   (drop)="onDrop($event)"
-  >
+>
   <input
     type="file"
     id="dicomFileInput"
@@ -12,18 +12,19 @@
     multiple
     webkitdirectory
     (change)="onFileInputChange($event)"
-    />
+  />
 
-  @if (selectedFileNames.length === 0) {
+  <ng-container *ngIf="selectedFileNames.length === 0; else filesList">
     <p class="drop-zone__icon">📁</p>
     <p class="drop-zone__title">Glissez-déposez le dossier de la série DICOM ici</p>
     <p class="drop-zone__subtitle">ou</p>
     <label for="dicomFileInput" class="drop-zone__browse-btn">Parcourir le device local</label>
-  } @else {
+  </ng-container>
+
+  <ng-template #filesList>
     <p class="drop-zone__title">{{ selectedFileNames.length }} fichier(s) sélectionné(s)</p>
     <label for="dicomFileInput" class="drop-zone__browse-btn drop-zone__browse-btn--secondary">
       Changer la sélection
     </label>
-  }
-
+  </ng-template>
 </div>

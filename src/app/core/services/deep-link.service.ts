@@ -36,11 +36,14 @@ export class DeepLinkService {
    * requis manque ou si l'authentification échoue.
    */
   async resolve(): Promise<DeepLinkParams> {
+    console.log('[DEBUG] deepLink.resolve() démarré');
     const queryParams = await firstValueFrom(this.route.queryParamMap);
+    console.log('[DEBUG] queryParams reçus =', queryParams.keys, queryParams);
 
     const patientId = queryParams.get('patientId');
     const accessToken = queryParams.get('access_token');
     const refreshToken = queryParams.get('refresh_token');
+    console.log('[DEBUG] patientId =', patientId, '| accessToken présent =', !!accessToken, '| refreshToken présent =', !!refreshToken);
 
     if (!patientId) {
       throw new DeepLinkError("Paramètre manquant : patientId");
@@ -49,7 +52,9 @@ export class DeepLinkService {
       throw new DeepLinkError("Lien invalide ou expiré : jeton d'authentification manquant");
     }
 
+    console.log('[DEBUG] avant setSessionFromTokens');
     const session = await this.supabase.setSessionFromTokens(accessToken, refreshToken);
+    console.log('[DEBUG] après setSessionFromTokens, session =', session);
     if (!session) {
       throw new DeepLinkError("Impossible d'authentifier le médecin. Le lien a peut-être expiré.");
     }

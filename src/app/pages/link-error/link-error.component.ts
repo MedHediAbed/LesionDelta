@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-link-error',
@@ -12,7 +12,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       </p>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .wrapper {

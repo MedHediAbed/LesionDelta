@@ -9,4 +9,6 @@ export const environment = {
   ohifLocalUrl: 'https://votre-instance-ohif.example.com/local',
 
   mobileAppFallbackUrl: 'deltalesion://patient-detail',
+
+  niftiConversionApiUrl: 'https://votre-backend-nifti.example.com',
 };
